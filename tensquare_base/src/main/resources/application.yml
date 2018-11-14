@@ -1,0 +1,13 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: tensquare_base
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://45.76.165.158:3306/tensquare_base?characterEncoding=utf-8
+    username: root
+    password: 199461
+  jpa:
+    show-sql: true
+    database: mysql
