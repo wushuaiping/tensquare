@@ -2,8 +2,8 @@ package io.wooo.tensquare.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author: wushuaiping
@@ -29,17 +29,17 @@ public class Result {
         this.message = message;
     }
 
-    public Result(Object data){
+    public Result(Object data) {
         this.flag = true;
-        this.code = StatusCode.OK;
-        this.message = "success";
+        this.code = HttpStatus.OK.value();
+        this.message = HttpStatus.OK.getReasonPhrase();
         this.data = data;
     }
 
-    public Result(){
+    public Result() {
         this.flag = true;
-        this.code = StatusCode.OK;
-        this.message = "success";
+        this.code = HttpStatus.OK.value();
+        this.message = HttpStatus.OK.getReasonPhrase();
     }
 
 }
