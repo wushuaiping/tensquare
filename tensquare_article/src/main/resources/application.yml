@@ -5,11 +5,13 @@ spring:
     name: tensquare_article
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://118.24.114.73:3306/tensquare_recruit?characterEncoding=utf-8
+    url: jdbc:mysql://118.24.114.73:3306/tensquare_article?characterEncoding=utf-8
     username: root
-    password: 199461
+    password: 123456
   jpa:
     show-sql: true
     database: mysql
-#    hibernate:
-#      ddl-auto: update
+  redis:
+    host: 118.24.114.73
+    password: 123456
+    port: 6379
