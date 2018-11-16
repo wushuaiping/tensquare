@@ -1,9 +1,12 @@
 package io.wooo.tensquare.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
+
+import java.io.Serializable;
 
 /**
  * @author: wushuaiping
@@ -13,8 +16,10 @@ import org.springframework.http.HttpStatus;
 @Setter
 @Getter
 @AllArgsConstructor
-public class Result {
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
+public class Result implements Serializable {
 
+    private static final long serialVersionUID = 487089606714189177L;
     private boolean flag;
 
     private Integer code;

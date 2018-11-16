@@ -1,11 +1,13 @@
 package io.woo.tensquare.article.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -19,8 +21,10 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "tb_article")
-public class Article {
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
+public class Article implements Serializable {
 
+    private static final long serialVersionUID = -6735656302772608564L;
     @Id
     private String id;
 

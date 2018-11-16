@@ -52,7 +52,13 @@
         <dependency>
             <groupId>io.wooo</groupId>
             <artifactId>tensquare_common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>io.wooo</groupId>
+            <artifactId>tensquare_common</artifactId>
+            <version>0.0.3-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

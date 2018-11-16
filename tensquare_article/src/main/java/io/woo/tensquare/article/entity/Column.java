@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -19,8 +20,9 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "tb_column")
-public class Column {
+public class Column implements Serializable {
 
+    private static final long serialVersionUID = 2907493880155722346L;
     @Id
     private String id;
 
