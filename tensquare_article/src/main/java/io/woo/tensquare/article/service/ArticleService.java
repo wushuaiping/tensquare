@@ -4,7 +4,7 @@ import io.woo.tensquare.article.entity.Article;
 import io.woo.tensquare.article.repository.ArticleRepository;
 import io.wooo.tensquare.common.exception.BadRequestException;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +21,10 @@ public class ArticleService {
 
     private ArticleRepository articleRepository;
 
+    private RedisTemplate<String, Article> redisTemplate;
+
+    private String ARTICLE_KEY = "article_";
+
     @Transactional
     public void approvePass(String id) {
         final Article article = articleRepository.findById(id).orElse(null);
@@ -28,6 +32,7 @@ public class ArticleService {
             throw new BadRequestException("该文章不存在");
         }
         article.setState("1");
+        redisTemplate.delete(ARTICLE_KEY + id);
         articleRepository.save(article);
     }
 
@@ -38,6 +43,7 @@ public class ArticleService {
             throw new BadRequestException("该文章不存在");
         }
         article.setThumbup(article.getThumbup() + 1);
+        redisTemplate.delete(ARTICLE_KEY + id);
         articleRepository.save(article);
     }
 
@@ -45,13 +51,22 @@ public class ArticleService {
         return articleRepository.findAll();
     }
 
-    @Cacheable(value = "articel", key = "'article_' + #id", condition = "#id != null")
     public Article getById(String id) {
-        return articleRepository.getOne(id);
+        Article article = redisTemplate.opsForValue().get(ARTICLE_KEY + id);
+        if (article == null) {
+            article = articleRepository.getOne(id);
+            redisTemplate.opsForValue().set(ARTICLE_KEY + id, article);
+        }
+        return article;
     }
 
     public void save(Article article) {
         articleRepository.save(article);
+    }
+
+    public void deleted(String id) {
+        redisTemplate.delete(ARTICLE_KEY + id);
+        articleRepository.deleteById(id);
     }
 
 }
