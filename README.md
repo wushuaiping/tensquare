@@ -38,18 +38,6 @@ this is tensquare
             <url>http://maven.aliyun.com/nexus/content/repositories/central</url>
             <mirrorOf>central</mirrorOf>
         </mirror>
-        <mirror>
-            <id>wooo-nexus</id>
-            <name>snapshots repository</name>
-            <mirrorOf>*</mirrorOf>
-            <url>http://打码处理/repository/snapshots/</url>
-        </mirror>
-        <mirror>
-            <id>wooo-nexus</id>
-            <name>release repository</name>
-            <url>http://打码处理/repository/release</url>
-            <mirrorOf>*</mirrorOf>
-        </mirror>
     </mirrors>
 </settings>
 
@@ -64,12 +52,12 @@ this is tensquare
         <repository>
             <id>wooo-nexus-snapshots</id>
             <name>release repository</name>
-            <url>http://打码处理/repository/release/</url>
+            <url>http://118.24.114.73:8081/repository/release/</url>
         </repository>
         <repository>
             <id>wooo-nexus-release</id>
             <name>snapshots repository</name>
-            <url>http://打码处理/repository/snapshots/</url>
+            <url>http://118.24.114.73:8081/repository/snapshots/</url>
         </repository>
     </repositories>
     <!-- 需要打包上传到的目的地 -->
@@ -77,12 +65,12 @@ this is tensquare
         <repository>
             <id>wooo-nexus</id>
             <name>release</name>
-            <url>http://打码处理/repository/release/</url>
+            <url>http://118.24.114.73:8081/repository/release/</url>
         </repository>
         <snapshotRepository>
             <id>wooo-nexus</id>
             <name>snapshots</name>
-            <url>http://打码处理/repository/snapshots/</url>
+            <url>http://118.24.114.73:8081/repository/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
  ....
@@ -156,6 +144,7 @@ Failed to execute goal org.apache.maven.plugins:maven-deploy-plugin:2.8.2:deploy
 ```
 就没有报错了，于是我知道问题所在了。 然后我删了自带的maven-snapshots和maven-release，自建了下面两个仓库:
 ![image](https://note.youdao.com/yws/api/personal/file/WEB0e53b3e2756fa7232487ee013608902b?method=download&amp;shareKey=6ebccba948ae58930a57a1a87afde601)
+
 配置文件如下:
 ```xml
     <repositories>
@@ -185,4 +174,5 @@ Failed to execute goal org.apache.maven.plugins:maven-deploy-plugin:2.8.2:deploy
     </distributionManagement>
 ```
 nexus配置如下，两个仓库配置是一样的。
-![image](https://note.youdao.com/yws/api/personal/file/WEBe1d99f271b24dd946a7ed31fa16383e5?method=download&amp;shareKey=b66fe8a5fce972be08bd475e837a890d)
+
+![image](https://note.youdao.com/yws/api/personal/file/WEB1ed8804c0de4bbdea83a5479b38e0fff?method=download&shareKey=ac1b26a19fbc87664c249ab131727d5a)
