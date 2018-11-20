@@ -25,14 +25,14 @@
     </properties>
     <repositories>
         <repository>
-            <id>nexus</id>
+            <id>wooo-nexus-snapshots</id>
             <name>snapshots repository</name>
-            <url>http://118.24.114.73:8081/repository/maven-snapshots/</url>
+            <url>http://118.24.114.73:8081/repository/snapshots</url>
         </repository>
         <repository>
-            <id>nexus</id>
+            <id>wooo-nexus-release</id>
             <name>release repository</name>
-            <url>http://118.24.114.73:8081/repository/maven-release/</url>
+            <url>http://118.24.114.73:8081/repository/release</url>
         </repository>
     </repositories>
 
@@ -44,6 +44,15 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -67,7 +76,7 @@
         <dependency>
             <groupId>io.wooo</groupId>
             <artifactId>tensquare_common</artifactId>
-            <version>0.0.3-SNAPSHOT</version>
+            <version>0.0.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.querydsl</groupId>

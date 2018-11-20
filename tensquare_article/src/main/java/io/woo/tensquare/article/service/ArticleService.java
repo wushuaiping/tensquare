@@ -4,6 +4,9 @@ import io.woo.tensquare.article.entity.Article;
 import io.woo.tensquare.article.repository.ArticleRepository;
 import io.wooo.tensquare.common.exception.BadRequestException;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +24,9 @@ public class ArticleService {
 
     private ArticleRepository articleRepository;
 
-    private RedisTemplate<String, Article> redisTemplate;
+    private final static String ARTICLE_KEY = "article_";
 
-    private String ARTICLE_KEY = "article_";
+    private RedisTemplate redisTemplate;
 
     @Transactional
     public void approvePass(String id) {
@@ -32,7 +35,6 @@ public class ArticleService {
             throw new BadRequestException("该文章不存在");
         }
         article.setState("1");
-        redisTemplate.delete(ARTICLE_KEY + id);
         articleRepository.save(article);
     }
 
@@ -43,7 +45,6 @@ public class ArticleService {
             throw new BadRequestException("该文章不存在");
         }
         article.setThumbup(article.getThumbup() + 1);
-        redisTemplate.delete(ARTICLE_KEY + id);
         articleRepository.save(article);
     }
 
@@ -51,21 +52,23 @@ public class ArticleService {
         return articleRepository.findAll();
     }
 
+//    @Cacheable(value = "article", key = "#id")
     public Article getById(String id) {
-        Article article = redisTemplate.opsForValue().get(ARTICLE_KEY + id);
-        if (article == null) {
-            article = articleRepository.getOne(id);
+        Article article = (Article)redisTemplate.opsForValue().get(ARTICLE_KEY + id);
+        if (article == null){
+             article = articleRepository.getOne(id);
             redisTemplate.opsForValue().set(ARTICLE_KEY + id, article);
         }
         return article;
     }
 
+    @CachePut(value = "article", key = "#id")
     public void save(Article article) {
         articleRepository.save(article);
     }
 
+    @CacheEvict(value = "article", key = "#id")
     public void deleted(String id) {
-        redisTemplate.delete(ARTICLE_KEY + id);
         articleRepository.deleteById(id);
     }
 

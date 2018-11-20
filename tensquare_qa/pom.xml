@@ -17,6 +17,18 @@
         <version>2.1.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <repositories>
+        <repository>
+            <id>wooo-nexus</id>
+            <name>release repository</name>
+            <url>http://118.24.114.73:8081/repository/release</url>
+        </repository>
+        <repository>
+            <id>wooo-nexus</id>
+            <name>snapshots repository</name>
+            <url>http://118.24.114.73:8081/repository/snapshots</url>
+        </repository>
+    </repositories>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
