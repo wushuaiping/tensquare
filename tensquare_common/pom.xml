@@ -5,7 +5,7 @@
 
     <groupId>io.wooo</groupId>
     <artifactId>tensquare_common</artifactId>
-    <version>0.0.5-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>tensquare_common</name>
@@ -17,31 +17,6 @@
         <version>2.1.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <repositories>
-        <repository>
-            <id>wooo-nexus-snapshots</id>
-            <name>release repository</name>
-            <url>http://118.24.114.73:8081/repository/release/</url>
-        </repository>
-        <repository>
-            <id>wooo-nexus-release</id>
-            <name>snapshots repository</name>
-            <url>http://118.24.114.73:8081/repository/snapshots/</url>
-        </repository>
-    </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>wooo-nexus</id>
-            <name>release</name>
-            <url>http://118.24.114.73:8081/repository/release/</url>
-        </repository>
-        <snapshotRepository>
-            <id>wooo-nexus</id>
-            <name>snapshots</name>
-            <url>http://118.24.114.73:8081/repository/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -52,18 +27,21 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 

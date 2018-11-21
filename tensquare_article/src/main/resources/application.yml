@@ -1,8 +1,8 @@
 server:
-  port: 9004
+  port: 9003
 spring:
   application:
-    name: tensquare_article
+    name: tensquare-article
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://118.24.114.73:3306/tensquare_article?characterEncoding=utf-8

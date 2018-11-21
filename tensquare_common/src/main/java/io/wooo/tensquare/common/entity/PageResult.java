@@ -14,10 +14,10 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageResult<T> {
+public class PageResult {
 
     private long total;
 
-    private T rows;
+    private Object rows;
 
 }

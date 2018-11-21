@@ -33,7 +33,7 @@ public class LabelController {
     public Result findByPage(@RequestBody LabelSearchRequest searchRequest,
                              @RequestParam(value = "page", defaultValue = "1") Integer page,
                              @RequestParam(value = "size", defaultValue = "20") Integer size) {
-        PageResult<Label> labels = labelService.findByPage(searchRequest, page, size);
+        PageResult labels = labelService.findByPage(searchRequest, page, size);
         return new Result(labels);
     }
 

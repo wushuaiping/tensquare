@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Setter
 @Getter
 @AllArgsConstructor
-@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
 public class Result implements Serializable {
 
     private static final long serialVersionUID = 487089606714189177L;
@@ -26,6 +25,7 @@ public class Result implements Serializable {
 
     private String message;
 
+    @JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
     private Object data;
 
     public Result(boolean flag, Integer code, String message) {

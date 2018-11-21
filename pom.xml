@@ -6,14 +6,24 @@
     <groupId>io.wooo</groupId>
     <artifactId>tensquare</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
+
+    <name>tensquare</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
 
     <modules>
-        <module>tensquare_common</module>
         <module>tensquare_base</module>
-        <module>tensquare_recruit</module>
-        <module>tensquare_qa</module>
+        <module>tensquare_common</module>
         <module>tensquare_article</module>
+        <module>tensquare_qa</module>
+        <module>tensquare_recruit</module>
+        <module>tensquare_gathering</module>
+        <module>tensquare_spit</module>
     </modules>
-
 </project>
