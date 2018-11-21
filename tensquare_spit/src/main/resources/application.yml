@@ -1,0 +1,17 @@
+server:
+  port: 9005
+spring:
+  application:
+    name: tensquare-spit
+  jpa:
+    show-sql: true
+    database: mysql
+  data:
+    mongodb:
+      host: 118.24.114.73
+      port: 27017
+      database: spitdb
+  redis:
+    host: 118.24.114.73
+    password: 123456
+    port: 6379
