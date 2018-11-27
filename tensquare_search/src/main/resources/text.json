@@ -1,0 +1,36 @@
+# logstash copy mysql to elastisearch script
+input {
+  jdbc {
+      # mysql jdbc connection string to our backup databse 后面的test对应mysql中的test数据库
+      jdbc_connection_string => "jdbc:mysql://118.24.114.73:3306/tensquare_article?characterEncoding=utf-8"
+      # the user we wish to excute our statement as
+      jdbc_user => "root"
+      jdbc_password => "123456"
+      # the path to our downloaded jdbc driver
+      jdbc_driver_library => "/home/logstash/jar/mysql-connector-java-6.0.6.jar"
+      # the name of the driver class for mysql
+      jdbc_driver_class => "com.mysql.jdbc.Driver"
+      jdbc_paging_enabled => "true"
+      jdbc_page_size => "50000"
+      #以下对应着要执行的sql的绝对路径。
+      statement => "select id,title,content from tb_article"
+      #定时字段 各字段含义（由左至右）分、时、天、月、年，全部为*默认含义为
+      每分钟都更新
+      schedule => "* * * * *"
+  }
+}
+output {
+  elasticsearch {
+      #ESIP地址与端口
+      hosts => "118.24.114.73:9200"
+      #ES索引名称（自己定义的）
+      index => "tensquare_article"
+      #自增ID编号
+      document_id => "%{id}"
+      document_type => "article"
+  }
+  stdout {
+    #以JSON格式输出
+    codec => json_lines
+  }
+}

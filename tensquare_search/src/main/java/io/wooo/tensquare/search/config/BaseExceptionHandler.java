@@ -1,4 +1,4 @@
-package io.wooo.tensquare.article.config;
+package io.wooo.tensquare.search.config;
 
 import io.wooo.tensquare.common.entity.Result;
 import io.wooo.tensquare.common.exception.BadRequestException;

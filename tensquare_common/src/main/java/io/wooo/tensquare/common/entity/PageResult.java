@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * @author: wushuaiping
  * @date: 2018/11/13 5:08 PM
@@ -14,10 +16,10 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageResult {
+public class PageResult<T> {
 
     private long total;
 
-    private Object rows;
+    private List<T> rows;
 
 }

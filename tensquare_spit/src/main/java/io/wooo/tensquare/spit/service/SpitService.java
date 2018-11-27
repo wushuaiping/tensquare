@@ -75,11 +75,11 @@ public class SpitService {
         spitRepository.deleteById(id);
     }
 
-    public PageResult getByParentId(String parentId, Pageable pageable) {
+    public PageResult<Spit> getByParentId(String parentId, Pageable pageable) {
         final Page<Spit> spitPage = spitRepository.findByParentid(parentId, pageable);
-        return new PageResult(spitPage.getTotalElements(), spitPage.getContent());
+        return new PageResult<Spit>(spitPage.getTotalElements(), spitPage.getContent());
     }
-    
+
     @Transactional
     public Integer thumup(String id) {
         Query query = new Query(Criteria.where("_id").is(id));

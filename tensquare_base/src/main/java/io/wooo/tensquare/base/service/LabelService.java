@@ -60,7 +60,7 @@ public class LabelService {
         return StreamSupport.stream(labelRepository.findAll(builder).spliterator(), true).collect(Collectors.toList());
     }
 
-    public PageResult findByPage(LabelSearchRequest searchRequest, Integer page, Integer size) {
+    public PageResult<Label> findByPage(LabelSearchRequest searchRequest, Integer page, Integer size) {
 
         final BooleanBuilder builder = LabelFilter.builder()
                 .id(searchRequest.getId())
@@ -73,7 +73,7 @@ public class LabelService {
 
         Pageable pageable = PageRequest.of(page - 1, size);
         final Page<Label> labelPage = labelRepository.findAll(builder, pageable);
-        PageResult result = new PageResult();
+        PageResult<Label> result = new PageResult<Label>();
         result.setRows(labelPage.getContent());
         result.setTotal(labelPage.getTotalElements());
         return result;
