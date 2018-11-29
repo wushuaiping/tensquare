@@ -52,17 +52,40 @@ public class IdWorker {
     // 数据标识id部分
     private final long datacenterId;
 
-    public IdWorker(){
+    private volatile static IdWorker idWorker = null;
+
+    public static IdWorker getInstance() {
+        if (idWorker == null) {
+            synchronized (IdWorker.class) {
+                if (idWorker == null) {
+                    idWorker = new IdWorker();
+                }
+            }
+        }
+        return idWorker;
+    }
+
+    public static IdWorker getInstance(long workerId, long datacenterId) {
+        if (idWorker == null) {
+            synchronized (IdWorker.class) {
+                if (idWorker == null) {
+                    idWorker = new IdWorker(workerId, datacenterId);
+                }
+            }
+        }
+        return idWorker;
+    }
+
+    private IdWorker() {
         this.datacenterId = getDatacenterId(maxDatacenterId);
         this.workerId = getMaxWorkerId(datacenterId, maxWorkerId);
     }
+
     /**
-     * @param workerId
-     *            工作机器ID
-     * @param datacenterId
-     *            序列号
+     * @param workerId     工作机器ID
+     * @param datacenterId 序列号
      */
-    public IdWorker(long workerId, long datacenterId) {
+    private IdWorker(long workerId, long datacenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
             throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
         }
@@ -72,6 +95,7 @@ public class IdWorker {
         this.workerId = workerId;
         this.datacenterId = datacenterId;
     }
+
     /**
      * 获取下一个ID
      *
@@ -102,6 +126,10 @@ public class IdWorker {
         return nextId;
     }
 
+    public String nextIdStringValue(){
+        return String.valueOf(nextId());
+    }
+
     private long tilNextMillis(final long lastTimestamp) {
         long timestamp = this.timeGen();
         while (timestamp <= lastTimestamp) {
@@ -124,14 +152,14 @@ public class IdWorker {
         mpid.append(datacenterId);
         String name = ManagementFactory.getRuntimeMXBean().getName();
         if (!name.isEmpty()) {
-         /*
-          * GET jvmPid
-          */
+            /*
+             * GET jvmPid
+             */
             mpid.append(name.split("@")[0]);
         }
-      /*
-       * MAC + PID 的 hashcode 获取16个低位
-       */
+        /*
+         * MAC + PID 的 hashcode 获取16个低位
+         */
         return (mpid.toString().hashCode() & 0xffff) % (maxWorkerId + 1);
     }
 

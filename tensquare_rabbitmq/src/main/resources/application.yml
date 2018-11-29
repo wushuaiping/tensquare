@@ -1,0 +1,5 @@
+server:
+  port: 9006
+spring:
+            rabbitmq:
+              host: 118.24.114.73

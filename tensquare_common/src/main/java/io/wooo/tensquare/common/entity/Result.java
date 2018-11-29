@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 @AllArgsConstructor
-public class Result implements Serializable {
+public class Result<T> implements Serializable {
 
     private static final long serialVersionUID = 487089606714189177L;
     private boolean flag;
@@ -25,8 +25,8 @@ public class Result implements Serializable {
 
     private String message;
 
-    @JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
-    private Object data;
+    @JsonIgnoreProperties(value = {"handler", "hibernateLazyInitializer", "fieldHandler"})
+    private T data;
 
     public Result(boolean flag, Integer code, String message) {
         this.flag = flag;
@@ -34,7 +34,7 @@ public class Result implements Serializable {
         this.message = message;
     }
 
-    public Result(Object data) {
+    public Result(T data) {
         this.flag = true;
         this.code = HttpStatus.OK.value();
         this.message = HttpStatus.OK.getReasonPhrase();

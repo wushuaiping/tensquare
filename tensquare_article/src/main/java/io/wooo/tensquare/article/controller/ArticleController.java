@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author: wushuaiping
  * @date: 2018/11/15 10:50 AM
@@ -33,13 +35,13 @@ public class ArticleController {
     }
 
     @GetMapping
-    public Result getAll() {
-        return new Result(articleService.getAll());
+    public Result<List<Article>> getAll() {
+        return new Result<>(articleService.getAll());
     }
 
     @GetMapping("/{id}")
-    public Result getById(@PathVariable("id") String id) {
-        return new Result(articleService.getById(id));
+    public Result<Article> getById(@PathVariable("id") String id) {
+        return new Result<>(articleService.getById(id));
     }
 
     @PutMapping

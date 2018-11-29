@@ -1,4 +1,4 @@
-package io.wooo.tensquare.base.config;
+package io.wooo.tensquare.spit.config;
 
 import io.wooo.tensquare.common.entity.Result;
 import io.wooo.tensquare.common.exception.BadRequestException;

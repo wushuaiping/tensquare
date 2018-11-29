@@ -1,0 +1,10 @@
+server:
+  port: 9007
+spring:
+  application:
+    name: tensquare-sms
+  rabbitmq:
+    host: 118.24.114.73
+yunpian:
+  sms:
+    apikey: 1297d989ceb3ef0bdd1c65bab9216595

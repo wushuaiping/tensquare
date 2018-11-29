@@ -1,6 +1,7 @@
-package io.wooo.tensquare.base.config;
+package io.wooo.tensquare.common.config;
 
 import io.wooo.tensquare.common.entity.Result;
+import io.wooo.tensquare.common.entity.StatusCode;
 import io.wooo.tensquare.common.exception.BadRequestException;
 import io.wooo.tensquare.common.exception.DefaultException;
 import io.wooo.tensquare.common.exception.NotFoundException;
