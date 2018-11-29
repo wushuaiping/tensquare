@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @AllArgsConstructor
+@CrossOrigin
 @RequestMapping(value = "/admin")
 public class AdminController {
 
@@ -51,11 +52,20 @@ public class AdminController {
     }
 
     @GetMapping
-    public Result<PageResult<Admin>> getAdminByPage(@RequestParam String username,
+    public Result<PageResult<Admin>> getAdminByPage(@RequestParam String keyword,
                                                     @RequestParam(defaultValue = "1", required = false) Integer page,
                                                     @RequestParam(defaultValue = "20", required = false) Integer size) {
         final Pageable of = PageRequest.of(page, size);
-        return new Result<>(adminService.getAdminByPage(username, of));
+        return new Result<>(adminService.getAdminByPage(keyword, of));
+    }
+
+    @PostMapping("/login")
+    public Result login(@RequestParam String mobile, @RequestParam String password) {
+        final Admin admin = adminService.login(mobile, password);
+        if (admin == null) {
+            return new Result(false, HttpStatus.BAD_REQUEST.value(), "请检查用户密码是否正确");
+        }
+        return new Result();
     }
 
 }

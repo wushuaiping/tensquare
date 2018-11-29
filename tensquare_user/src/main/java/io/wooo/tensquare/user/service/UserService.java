@@ -8,6 +8,7 @@ import io.wooo.tensquare.user.util.SmsTemplateUtils;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
@@ -28,6 +29,8 @@ public class UserService {
     private RedisTemplate<String, String> redisTemplate;
 
     private SmsMessage smsMessage;
+
+    private BCryptPasswordEncoder encoder;
 
     public void sendSms(String mobile) {
 
@@ -68,8 +71,23 @@ public class UserService {
 
         // 初始化用户的一些信息
         user.initUser(user);
+
+        // 给密码加密
+        user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);
-        // 验证码用完后。将缓存中的验证码删除
+
+        // 验证码用完后。删除这条缓存
         redisTemplate.delete(key);
+
+        // 发送注册成功的消息给用户
+        smsMessage.sendMobileSms(user.getMobile(), SmsTemplateUtils.userReg(user.getNickname()));
+    }
+
+    public User login(String mobile, String password) {
+        final User user = userRepository.findByMobile(mobile);
+        if (user != null && encoder.matches(password, user.getPassword())) {
+            return user;
+        }
+        return null;
     }
 }

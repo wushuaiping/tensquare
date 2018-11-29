@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface AdminRepository extends JpaRepository<Admin, String> {
 
-    Page<Admin> findByUsernameLike(String keyword, Pageable pageable);
+    Page<Admin> findByUsernameLikeOrMobileLikeOrderByLastLoginDate(String keyword, Pageable pageable);
 
     Admin findByMobile(String mobile);
 }

@@ -17,6 +17,10 @@ public class SmsTemplateUtils {
         return "【吴帅苹做测试的】" + username + "，欢迎加入 wooo.io ，请保管好您的账号密码哦。";
     }
 
+    public static String userReg(String username){
+        return "【吴帅苹做测试的】" + username + "，谢谢大兄dei注册成为我们的用户，我们在这里等你好久啦！请大兄dei保管好账号密码哦。";
+    }
+
     public static String randomCode() {
         // 生成六位数字随机数
         Random random = new Random();

@@ -1,6 +1,7 @@
 package io.wooo.tensquare.user.controller;
 
 import io.wooo.tensquare.common.entity.Result;
+import io.wooo.tensquare.user.entity.User;
 import io.wooo.tensquare.user.mapper.UserMapper;
 import io.wooo.tensquare.user.model.UserRegisterModel;
 import io.wooo.tensquare.user.service.UserService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @description:
  */
 @RestController
+@CrossOrigin
 @AllArgsConstructor
 @RequestMapping(value = "/user")
 public class UserController {
@@ -50,6 +52,15 @@ public class UserController {
             return new Result(false, HttpStatus.BAD_REQUEST.value(), "兄dei，请你填一个正确的手机号。");
         }
         userService.register(code, UserMapper.MAPPER.registerModelToEntity(user));
+        return new Result();
+    }
+
+    @PostMapping("/login")
+    public Result login(@RequestParam String mobile, @RequestParam String password) {
+        final User user = userService.login(mobile, password);
+        if (user == null) {
+            return new Result(false, HttpStatus.BAD_REQUEST.value(), "请检查用户密码是否正确");
+        }
         return new Result();
     }
 }

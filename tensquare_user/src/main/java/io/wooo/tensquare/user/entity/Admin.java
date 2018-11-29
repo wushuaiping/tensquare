@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.wooo.tensquare.common.util.IdWorker;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -58,9 +59,17 @@ public class Admin implements Serializable {
      */
     private LocalDateTime lastLoginDate;
 
+    /**
+     * 性别
+     */
+    private String sex;
+
     public void initAdmin(Admin admin) {
         if (admin == null) {
             admin = new Admin();
+        }
+        if (!StringUtils.equals(admin.getSex(), "M") || StringUtils.equals(admin.getSex(), "W")){
+            admin.setSex("未知性别的生物");
         }
         final IdWorker instance = IdWorker.getInstance();
         admin.setId(instance.nextIdStringValue());

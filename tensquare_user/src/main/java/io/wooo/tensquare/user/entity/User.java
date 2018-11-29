@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.wooo.tensquare.common.util.IdWorker;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -126,6 +127,9 @@ public class User implements Serializable {
     public void initUser(User user) {
         if (user == null) {
             user = new User();
+        }
+        if (!StringUtils.equals(user.getSex(), "M") || StringUtils.equals(user.getSex(), "W")){
+            user.setSex("未知性别的生物");
         }
         final IdWorker instance = IdWorker.getInstance();
         user.setId(instance.nextIdStringValue());

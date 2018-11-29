@@ -2,7 +2,6 @@ package io.wooo.tensquare.user.service;
 
 import io.wooo.tensquare.common.entity.PageResult;
 import io.wooo.tensquare.common.exception.BadRequestException;
-import io.wooo.tensquare.common.util.IdWorker;
 import io.wooo.tensquare.user.entity.Admin;
 import io.wooo.tensquare.user.rabbitmq.SmsMessage;
 import io.wooo.tensquare.user.repository.AdminRepository;
@@ -52,7 +51,7 @@ public class AdminService {
     }
 
     public PageResult<Admin> getAdminByPage(String username, Pageable pageable) {
-        final Page<Admin> adminPage = adminRepository.findByUsernameLike(username, pageable);
+        final Page<Admin> adminPage = adminRepository.findByUsernameLikeOrMobileLikeOrderByLastLoginDate(username, pageable);
         final PageResult<Admin> result = new PageResult<>();
         result.setTotal(adminPage.getTotalElements());
         result.setRows(adminPage.getContent());
@@ -63,4 +62,12 @@ public class AdminService {
         return adminRepository.findByMobile(mobile) == null ? false : true;
     }
 
+    public Admin login(String mobile, String password) {
+        // 因为每次的加盐都是不一样的，所以通过手机号先拿出用户信息，然后再去匹配对象中的密码和用户输入的密码是否一致。
+        final Admin admin = adminRepository.findByMobile(mobile);
+        if (admin != null && encoder.matches(password, admin.getPassword())) {
+            return admin;
+        }
+        return null;
+    }
 }
