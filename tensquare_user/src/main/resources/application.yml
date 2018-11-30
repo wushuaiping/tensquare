@@ -2,7 +2,7 @@ server:
   port: 9006
 spring:
   application:
-    name: tensquare-recruit
+    name: tensquare-user
   # mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -27,3 +27,10 @@ jwt:
   config:
     key: wocaonigedjnitamakendingbuzhidaoyanshishenmehahaha
     ttl: 3600000
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9999/eureka/
+  # 跨域访问
+  instance:
+    prefer-ip-address: true

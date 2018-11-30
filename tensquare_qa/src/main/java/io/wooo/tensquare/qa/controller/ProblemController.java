@@ -2,13 +2,14 @@ package io.wooo.tensquare.qa.controller;
 
 import io.wooo.tensquare.common.entity.PageResult;
 import io.wooo.tensquare.common.entity.Result;
+import io.wooo.tensquare.qa.client.BaseClient;
 import io.wooo.tensquare.qa.config.model.LoginUser;
 import io.wooo.tensquare.qa.entity.Problem;
 import io.wooo.tensquare.qa.enums.IdentityEnum;
 import io.wooo.tensquare.qa.service.ProblemService;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,13 +20,21 @@ import javax.servlet.http.HttpServletRequest;
  * @description:
  */
 @RestController
+@CrossOrigin
 @AllArgsConstructor
-@RequestMapping("/problem")
+@RequestMapping(value = "/problem", produces = { "application/json;charset=UTF-8" })
 public class ProblemController {
 
     private ProblemService problemService;
 
     private HttpServletRequest request;
+
+    private BaseClient baseClient;
+
+    @GetMapping(value = "/label/{labelId}")
+    public Result finByLabelId(@PathVariable(value = "labelId") String labelId) {
+        return baseClient.findOne(labelId);
+    }
 
     @GetMapping(value = "/newlist/{labelId}")
     public Result<PageResult<Problem>> newlist(@PathVariable(value = "labelId") String labelId,

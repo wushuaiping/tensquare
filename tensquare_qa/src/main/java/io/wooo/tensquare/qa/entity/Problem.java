@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
+ *  问题
  * @author: wushuaiping
  * @date: 2018/11/14 4:27 PM
  * @description:
@@ -74,7 +75,7 @@ public class Problem {
     /**
      * 问题回答
      */
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Reply> reply;
 
     /**

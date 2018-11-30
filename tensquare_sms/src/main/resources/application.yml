@@ -8,3 +8,10 @@ spring:
 yunpian:
   sms:
     apikey: 1297d989ceb3ef0bdd1c65bab9216595
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9999/eureka/
+  # 跨域访问
+  instance:
+    prefer-ip-address: true

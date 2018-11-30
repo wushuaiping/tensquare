@@ -15,3 +15,10 @@ spring:
     host: 118.24.114.73
     password: 123456
     port: 6379
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9999/eureka/
+  # 跨域访问
+  instance:
+    prefer-ip-address: true
