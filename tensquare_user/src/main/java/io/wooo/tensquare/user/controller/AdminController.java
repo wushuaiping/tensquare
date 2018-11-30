@@ -2,6 +2,7 @@ package io.wooo.tensquare.user.controller;
 
 import io.wooo.tensquare.common.entity.PageResult;
 import io.wooo.tensquare.common.entity.Result;
+import io.wooo.tensquare.common.util.JwtUtil;
 import io.wooo.tensquare.user.entity.Admin;
 import io.wooo.tensquare.user.mapper.AdminMapper;
 import io.wooo.tensquare.user.model.AdminRegisterModel;
@@ -13,6 +14,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author: wushuaiping
@@ -26,6 +30,8 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     private AdminService adminService;
+
+    private JwtUtil jwtUtil;
 
     @PostMapping
     public Result save(@RequestBody AdminRegisterModel admin) {
@@ -61,11 +67,18 @@ public class AdminController {
 
     @PostMapping("/login")
     public Result login(@RequestParam String mobile, @RequestParam String password) {
+
         final Admin admin = adminService.login(mobile, password);
         if (admin == null) {
             return new Result(false, HttpStatus.BAD_REQUEST.value(), "请检查用户密码是否正确");
         }
-        return new Result();
+
+        // 生成令牌
+        final String token = jwtUtil.createJWT(admin.getId(), admin.getMobile(), "admin");
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        map.put("roles", "admin");
+        return new Result(map);
     }
 
 }

@@ -1,7 +1,9 @@
 package io.wooo.tensquare.user.service;
 
 import io.wooo.tensquare.common.exception.BadRequestException;
+import io.wooo.tensquare.user.config.model.LoginUser;
 import io.wooo.tensquare.user.entity.User;
+import io.wooo.tensquare.user.enums.IdentityEnum;
 import io.wooo.tensquare.user.rabbitmq.SmsMessage;
 import io.wooo.tensquare.user.repository.UserRepository;
 import io.wooo.tensquare.user.util.SmsTemplateUtils;
@@ -11,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -31,6 +34,8 @@ public class UserService {
     private SmsMessage smsMessage;
 
     private BCryptPasswordEncoder encoder;
+
+    private HttpServletRequest httpServletRequest;
 
     public void sendSms(String mobile) {
 
@@ -89,5 +94,21 @@ public class UserService {
             return user;
         }
         return null;
+    }
+
+    /**
+     * 需要admin角色才能删除
+     *
+     * @param id
+     */
+    public void delete(String id) {
+        final LoginUser loginUser = (LoginUser)httpServletRequest.getAttribute(IdentityEnum.CLAIMS_ADMIN.getDes());
+        if (loginUser.getIdentify() == IdentityEnum.CLAIMS_ADMIN) {
+            final User user = userRepository.findById(id).orElse(null);
+            if (user == null) {
+                throw new BadRequestException("用户不存在");
+            }
+            userRepository.delete(user);
+        }
     }
 }

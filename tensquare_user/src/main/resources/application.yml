@@ -22,3 +22,8 @@ spring:
     host: 118.24.114.73
     password: 123456
     port: 6379
+# jwt
+jwt:
+  config:
+    key: wocaonigedjnitamakendingbuzhidaoyanshishenmehahaha
+    ttl: 3600000
