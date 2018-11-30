@@ -11,3 +11,8 @@ spring:
   jpa:
     show-sql: true
     database: mysql
+# jwt
+jwt:
+  config:
+    key: wocaonigedjnitamakendingbuzhidaoyanshishenmehahaha
+    ttl: 3600000

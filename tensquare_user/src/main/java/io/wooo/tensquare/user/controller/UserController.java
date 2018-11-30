@@ -1,6 +1,7 @@
 package io.wooo.tensquare.user.controller;
 
 import io.wooo.tensquare.common.entity.Result;
+import io.wooo.tensquare.common.util.JwtUtil;
 import io.wooo.tensquare.user.entity.User;
 import io.wooo.tensquare.user.mapper.UserMapper;
 import io.wooo.tensquare.user.model.UserRegisterModel;
@@ -10,6 +11,9 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author: wushuaiping
@@ -23,6 +27,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private UserService userService;
+
+    private JwtUtil jwtUtil;
 
     @PostMapping(value = "/sendsms/{mobile}")
     public Result sendSms(@PathVariable("mobile") String mobile) {
@@ -56,12 +62,18 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Result login(@RequestParam String mobile, @RequestParam String password) {
+    public Result<Map<String, Object>> login(@RequestParam String mobile, @RequestParam String password) {
         final User user = userService.login(mobile, password);
         if (user == null) {
-            return new Result(false, HttpStatus.BAD_REQUEST.value(), "请检查用户密码是否正确");
+            return new Result<>(false, HttpStatus.BAD_REQUEST.value(), "请检查用户密码是否正确");
         }
-        return new Result();
+
+        // 生成令牌
+        final String token = jwtUtil.createJWT(user.getId(), user.getMobile(), "user");
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        map.put("roles", "user");
+        return new Result<>(map);
     }
 
     @DeleteMapping("/{id}")

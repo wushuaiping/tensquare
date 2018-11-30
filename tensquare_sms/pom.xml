@@ -54,6 +54,12 @@
             <artifactId>tensquare_common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <!-- 云片短信 -->
+        <dependency>
+            <groupId>com.yunpian.sdk</groupId>
+            <artifactId>yunpian-java-sdk</artifactId>
+            <version>1.2.7</version>
+        </dependency>
     </dependencies>
 
     <build>

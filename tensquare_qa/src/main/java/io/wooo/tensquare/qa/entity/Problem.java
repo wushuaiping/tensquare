@@ -81,4 +81,16 @@ public class Problem {
      * 问题关联的标签id
      */
     private String labelId;
+
+    public void initProblem(Problem problem) {
+        if (problem == null) {
+            problem = new Problem();
+        }
+        final LocalDateTime now = LocalDateTime.now();
+        problem.setCreatetime(now);
+        problem.setUpdatetime(now);
+        problem.setVisits(0L);
+        problem.setThumbup(0L);
+        problem.setReplyCount(0L);
+    }
 }

@@ -1,10 +1,10 @@
-package io.wooo.tensquare.user.config;
+package io.wooo.tensquare.qa.config;
 
 import io.jsonwebtoken.Claims;
 import io.wooo.tensquare.common.exception.UnauthorizedException;
 import io.wooo.tensquare.common.util.JwtUtil;
-import io.wooo.tensquare.user.config.model.LoginUser;
-import io.wooo.tensquare.user.enums.IdentityEnum;
+import io.wooo.tensquare.qa.config.model.LoginUser;
+import io.wooo.tensquare.qa.enums.IdentityEnum;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -26,7 +26,8 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     private JwtUtil jwtUtil;
 
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+
         final String authorization = request.getHeader("Authorization");
 
         // 有token的请求头才去进行校验

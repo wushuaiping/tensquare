@@ -27,6 +27,38 @@ public class JwtUtil {
      */
     private long ttl;
 
+    private volatile static JwtUtil jwtUtil;
+
+    private JwtUtil() {
+    }
+
+    private JwtUtil(String key, long ttl) {
+        this.key = key;
+        this.ttl = ttl;
+    }
+
+    public static JwtUtil getInstance() {
+        if (jwtUtil == null) {
+            synchronized (IdWorker.class) {
+                if (jwtUtil == null) {
+                    jwtUtil = new JwtUtil();
+                }
+            }
+        }
+        return jwtUtil;
+    }
+
+    public static JwtUtil getInstance(String key, long ttl) {
+        if (jwtUtil == null) {
+            synchronized (IdWorker.class) {
+                if (jwtUtil == null) {
+                    jwtUtil = new JwtUtil(key, ttl);
+                }
+            }
+        }
+        return jwtUtil;
+    }
+
     /**
      * 生成JWT
      *

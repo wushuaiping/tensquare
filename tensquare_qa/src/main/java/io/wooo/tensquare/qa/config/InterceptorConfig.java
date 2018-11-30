@@ -1,4 +1,4 @@
-package io.wooo.tensquare.user.config;
+package io.wooo.tensquare.qa.config;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;

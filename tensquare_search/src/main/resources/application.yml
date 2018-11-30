@@ -1,5 +1,5 @@
 server:
-  port: 9005
+  port: 9008
 spring:
   application:
     name: tensquare-search

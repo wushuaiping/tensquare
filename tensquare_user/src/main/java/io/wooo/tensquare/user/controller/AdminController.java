@@ -66,11 +66,11 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public Result login(@RequestParam String mobile, @RequestParam String password) {
+    public Result<Map<String, Object>> login(@RequestParam String mobile, @RequestParam String password) {
 
         final Admin admin = adminService.login(mobile, password);
         if (admin == null) {
-            return new Result(false, HttpStatus.BAD_REQUEST.value(), "请检查用户密码是否正确");
+            return new Result<>(false, HttpStatus.BAD_REQUEST.value(), "请检查用户密码是否正确");
         }
 
         // 生成令牌
@@ -78,7 +78,7 @@ public class AdminController {
         Map<String, Object> map = new HashMap<>();
         map.put("token", token);
         map.put("roles", "admin");
-        return new Result(map);
+        return new Result<>(map);
     }
 
 }

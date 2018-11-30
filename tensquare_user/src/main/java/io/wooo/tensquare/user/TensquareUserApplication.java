@@ -20,6 +20,6 @@ public class TensquareUserApplication {
 
     @Bean
     public JwtUtil jwtUtil() {
-        return new JwtUtil();
+        return JwtUtil.getInstance();
     }
 }
