@@ -4,6 +4,7 @@ import io.wooo.tensquare.common.entity.Result;
 import io.wooo.tensquare.common.util.JwtUtil;
 import io.wooo.tensquare.user.entity.User;
 import io.wooo.tensquare.user.mapper.UserMapper;
+import io.wooo.tensquare.user.model.UpdateUserModel;
 import io.wooo.tensquare.user.model.UserRegisterModel;
 import io.wooo.tensquare.user.service.UserService;
 import io.wooo.tensquare.user.util.CheckMobileUtil;
@@ -79,7 +80,12 @@ public class UserController {
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable("id") String id) {
         userService.delete(id);
+        return new Result();
+    }
 
+    @PutMapping("/update/count")
+    public Result updateUserCount(@RequestBody UpdateUserModel updateUserModel) {
+        userService.updateUserCount(updateUserModel);
         return new Result();
     }
 }

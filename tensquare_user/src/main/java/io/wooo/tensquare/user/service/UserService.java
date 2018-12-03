@@ -4,6 +4,7 @@ import io.wooo.tensquare.common.exception.BadRequestException;
 import io.wooo.tensquare.user.config.model.LoginUser;
 import io.wooo.tensquare.user.entity.User;
 import io.wooo.tensquare.user.enums.IdentityEnum;
+import io.wooo.tensquare.user.model.UpdateUserModel;
 import io.wooo.tensquare.user.rabbitmq.SmsMessage;
 import io.wooo.tensquare.user.repository.UserRepository;
 import io.wooo.tensquare.user.util.SmsTemplateUtils;
@@ -12,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +27,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 @AllArgsConstructor
+@Transactional
 public class UserService {
 
     private UserRepository userRepository;
@@ -102,13 +105,42 @@ public class UserService {
      * @param id
      */
     public void delete(String id) {
-        final LoginUser loginUser = (LoginUser)httpServletRequest.getAttribute(IdentityEnum.CLAIMS_ADMIN.getDes());
-        if (loginUser.getIdentify() == IdentityEnum.CLAIMS_ADMIN) {
+        final LoginUser loginUser = (LoginUser) httpServletRequest.getAttribute(IdentityEnum.CLAIMS_ADMIN.getDes());
+        if (loginUser == null) {
             final User user = userRepository.findById(id).orElse(null);
             if (user == null) {
                 throw new BadRequestException("用户不存在");
             }
             userRepository.delete(user);
         }
+    }
+
+    public User findById(String userid) {
+        return userRepository.findById(userid).orElse(null);
+    }
+
+    public void updateUserCount(UpdateUserModel updateUserModel) {
+
+        // 执行关注操作的用户
+        final User loginUser = findById(updateUserModel.getLoginUserId());
+
+        if (loginUser == null) {
+            throw new BadRequestException("用户不存在");
+        }
+
+        // 被关注的用户
+        final User followUser = findById(updateUserModel.getTargetUserId());
+
+        if (followUser == null) {
+            throw new BadRequestException("用户不存在");
+        }
+
+        // 修改被关注用户的粉丝数
+        followUser.setFansCount(updateUserModel.getFansCount());
+        userRepository.save(followUser);
+
+        // 修改执行关注操作用户的关注数
+        loginUser.setFollowCount(updateUserModel.getFollowCount());
+        userRepository.save(loginUser);
     }
 }

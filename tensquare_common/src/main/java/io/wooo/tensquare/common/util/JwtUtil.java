@@ -27,7 +27,7 @@ public class JwtUtil {
      */
     private long ttl;
 
-    private volatile static JwtUtil jwtUtil;
+    private volatile static JwtUtil jwtUtil = null;
 
     private JwtUtil() {
     }

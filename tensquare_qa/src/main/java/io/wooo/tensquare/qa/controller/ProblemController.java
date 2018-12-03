@@ -66,7 +66,7 @@ public class ProblemController {
     @PostMapping
     public Result save(@RequestBody Problem problem) {
         final LoginUser loginUser = (LoginUser) request.getAttribute(IdentityEnum.CLAIMS_USER.getDes());
-        if (loginUser == null || loginUser.getIdentify() != IdentityEnum.CLAIMS_USER) {
+        if (loginUser == null) {
             return new Result(false, HttpStatus.UNAUTHORIZED.value(), "invalid_token");
         }
         problemService.save(problem);
