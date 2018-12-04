@@ -38,9 +38,12 @@ public class LabelController {
     }
 
     @GetMapping("/{id}")
-    public Result findOne(@PathVariable(value = "id") String id) {
+    public Result<Label> findOne(@PathVariable(value = "id") String id) {
+        if ("1".equals(id)){
+            throw new NullPointerException("熔断器测试");
+        }
         final Label label = labelService.findById(id);
-        return new Result(label);
+        return new Result<>(label);
     }
 
     @DeleteMapping("/{id}")

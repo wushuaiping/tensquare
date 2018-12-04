@@ -23,3 +23,6 @@ eureka:
   # 跨域访问
   instance:
     prefer-ip-address: true
+feign:
+  hystrix:
+    enabled: true

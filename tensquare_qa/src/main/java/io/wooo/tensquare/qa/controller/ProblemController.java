@@ -9,7 +9,6 @@ import io.wooo.tensquare.qa.enums.IdentityEnum;
 import io.wooo.tensquare.qa.service.ProblemService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @CrossOrigin
 @AllArgsConstructor
-@RequestMapping(value = "/problem", produces = { "application/json;charset=UTF-8" })
+@RequestMapping(value = "/problem", produces = {"application/json;charset=UTF-8"})
 public class ProblemController {
 
     private ProblemService problemService;
