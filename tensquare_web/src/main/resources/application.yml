@@ -48,3 +48,5 @@ zuul:
     tensquare-user:
       path: /user/**
       serviceId: tensquare-user
+  # 传递请求头
+  sensitive-headers:

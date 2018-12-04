@@ -8,6 +8,7 @@ import io.wooo.tensquare.common.entity.Result;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -22,6 +23,8 @@ import java.util.List;
 public class LabelController {
 
     private LabelService labelService;
+
+    private HttpServletRequest request;
 
     @PostMapping("/search")
     public Result findBySearch(@RequestBody LabelSearchRequest searchRequest) {
@@ -66,6 +69,8 @@ public class LabelController {
 
     @GetMapping
     public Result<List<Label>> getAll() {
+        final String authorization = request.getHeader("Authorization");
+        System.out.println(authorization);
         return new Result<>(labelService.getAll());
     }
 
