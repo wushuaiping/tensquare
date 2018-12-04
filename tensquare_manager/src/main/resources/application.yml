@@ -10,6 +10,11 @@ eureka:
   # 跨域访问
   instance:
     prefer-ip-address: true
+# jwt
+jwt:
+  config:
+    key: wocaonigedjnitamakendingbuzhidaoyanshishenmehahaha
+    ttl: 3600000
 # zuul网关配置
 zuul:
   host:
