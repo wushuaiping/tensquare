@@ -78,4 +78,8 @@ public class LabelService {
         result.setTotal(labelPage.getTotalElements());
         return result;
     }
+
+    public List<Label> getAll() {
+        return labelRepository.findAll();
+    }
 }

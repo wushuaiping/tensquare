@@ -25,5 +25,6 @@
         <module>tensquare_eureka</module>
         <module>tensquare_friend</module>
         <module>tensquare_rabbitmq</module>
+        <module>tensquare_manager</module>
     </modules>
 </project>
