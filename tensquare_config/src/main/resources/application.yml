@@ -1,0 +1,17 @@
+server:
+  port: 9998
+spring:
+  application:
+    name: tensquare-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/wushuaiping/tensquare-dev-config.git
+  rabbitmq:
+    host: 118.24.114.73
+management: # 暴露触发bus消息总线的配置
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

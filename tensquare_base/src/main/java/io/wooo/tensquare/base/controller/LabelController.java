@@ -71,7 +71,8 @@ public class LabelController {
     public Result<List<Label>> getAll() {
         final String authorization = request.getHeader("Authorization");
         System.out.println(authorization);
-        return new Result<>(labelService.getAll());
+        final List<Label> all = labelService.getAll();
+        return new Result<>(all);
     }
 
 

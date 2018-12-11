@@ -1,8 +1,0 @@
-server:
-  port: 9999
-eureka:
-  client:
-    register-with-eureka: false # 是否获取注册信息
-    fetch-registry: false
-    service-url:
-      defaultZone: http://localhost:${server.port}/eureka/

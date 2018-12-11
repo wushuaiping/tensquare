@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      name: tensquare-base
+      uri: http://localhost:9998
+      #profile: dev   #name+profile = tensquare-base-dev.yml  一般默认是服务名字+profile
+      #label: master

@@ -27,5 +27,6 @@
         <module>tensquare_rabbitmq</module>
         <module>tensquare_manager</module>
         <module>tensquare_web</module>
+        <module>tensquare_config</module>
     </modules>
 </project>
