@@ -90,11 +90,11 @@ public class ManagerFilter extends ZuulFilter {
                     currentContext.setSendZuulResponse(false);
                 }
             }
+            currentContext.setSendZuulResponse(false);
+            currentContext.setResponseStatusCode(403);
+            currentContext.setResponseBody("invalid_token");
+            currentContext.getResponse().setContentType("text/html; charset=utf-8");
         }
-        currentContext.setSendZuulResponse(false);
-        currentContext.setResponseStatusCode(403);
-        currentContext.setResponseBody("invalid_token");
-        currentContext.getResponse().setContentType("text/html; charset=utf-8");
         return null;
     }
 }
