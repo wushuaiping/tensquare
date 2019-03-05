@@ -2,9 +2,11 @@ package io.wooo.tensquare.friend.repository.impl;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.wooo.tensquare.friend.entity.QFriend;
-import io.wooo.tensquare.friend.repository.FriendRepository;
 import io.wooo.tensquare.friend.repository.FriendRepositoryCustom;
 import lombok.AllArgsConstructor;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author: wushuaiping
@@ -28,5 +30,11 @@ public class FriendRepositoryImpl implements FriendRepositoryCustom {
         final QFriend friend = QFriend.friend;
         int count = jpaQueryFactory.select(friend.userid.count()).from(friend).where(friend.friendid.eq(userid)).fetchOne().intValue();
         return count;
+    }
+
+    public static void main(String[] args) {
+        final List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
+        final String s = integers.toString();
+        System.out.println(integers);
     }
 }
