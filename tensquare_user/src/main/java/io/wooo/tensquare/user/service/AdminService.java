@@ -59,7 +59,7 @@ public class AdminService {
     }
 
     public boolean checkMobile(String mobile) {
-        return adminRepository.findByMobile(mobile) == null ? false : true;
+        return adminRepository.findByMobile(mobile) != null;
     }
 
     public Admin login(String mobile, String password) {

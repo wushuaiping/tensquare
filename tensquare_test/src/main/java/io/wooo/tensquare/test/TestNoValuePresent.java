@@ -1,5 +1,7 @@
 package io.wooo.tensquare.test;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -13,12 +15,17 @@ import java.util.Set;
 public class TestNoValuePresent {
 
     public static void main(String[] args) {
-        Set<Person> bigDecimals = new HashSet<>();
-        Map<String, Integer> map = new HashMap<>();
-        map.put("AAA", 11);
-        bigDecimals.parallelStream().forEach(person -> {
-            map.get(person.getName());
-        });
+//        Set<Person> bigDecimals = new HashSet<>();
+//        Map<String, Integer> map = new HashMap<>();
+//        map.put("AAA", 11);
+//        bigDecimals.parallelStream().forEach(person -> {
+//            map.get(person.getName());
+//        });
+
+        final Long timestamp = getTimestamp(LocalDateTime.of(2018, 1, 1, 0, 0));
+        final Long timestamp1 = getTimestamp(LocalDateTime.of(2018, 12, 31, 23, 59));
+        System.out.println(timestamp);
+        System.out.println(timestamp1);
     }
 
     class Person {
@@ -40,5 +47,9 @@ public class TestNoValuePresent {
         public void setName(String name) {
             this.name = name;
         }
+    }
+
+    private static Long getTimestamp(LocalDateTime localDateTime){
+        return localDateTime.toInstant(ZoneOffset.of("+8")).toEpochMilli();
     }
 }
