@@ -18,7 +18,7 @@ public class SmsMessage {
 
     private RabbitTemplate rabbitTemplate;
 
-    private static final String sendVerificationCodeSms = "sendVerificationCodeSms";
+    private static final String SEND_VERIFICATION_CODE_SMS = "sendVerificationCodeSms";
 
     /**
      * 发送消息给指定手机号码
@@ -31,6 +31,6 @@ public class SmsMessage {
         map.put("mobile", mobile);
         map.put("smsContent", smsContent);
         // 将验证码发送给用户
-        rabbitTemplate.convertAndSend(sendVerificationCodeSms, map);
+        rabbitTemplate.convertAndSend(SEND_VERIFICATION_CODE_SMS, map);
     }
 }

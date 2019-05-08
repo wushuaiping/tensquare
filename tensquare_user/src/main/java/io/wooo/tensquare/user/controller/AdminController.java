@@ -37,15 +37,15 @@ public class AdminController {
     public Result save(@RequestBody AdminRegisterModel admin) {
 
         if (StringUtils.isBlank(admin.getUsername())) {
-            return new Result(false, HttpStatus.BAD_REQUEST.value(), "兄dei，用户名不能为空。");
+            return new Result(false, HttpStatus.BAD_REQUEST.value(), "用户名不能为空。");
         }
 
         if (StringUtils.isBlank(admin.getPassword())) {
-            return new Result(false, HttpStatus.BAD_REQUEST.value(), "兄dei，密码不能为空。");
+            return new Result(false, HttpStatus.BAD_REQUEST.value(), "密码不能为空。");
         }
 
         if (!CheckMobileUtil.isPhoneLegal(admin.getMobile())) {
-            return new Result(false, HttpStatus.BAD_REQUEST.value(), "兄dei，请你填一个正确的手机号。");
+            return new Result(false, HttpStatus.BAD_REQUEST.value(), "请填写正确的手机号。");
         }
 
         adminService.save(AdminMapper.MAPPER.registerModelToEntity(admin));
